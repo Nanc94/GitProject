@@ -4,11 +4,12 @@ include '../../../config/autoload.php';
 $postgres = new connexion();
 $conn = $postgres->connect();
 
+//récuperation des données entrée
 $debut = $_POST['debut'];
 $fin = $_POST['fin'];
 
 
-
+//requete sql
 $sql ="
         SELECT COUNT(reference),(SELECT COUNT(reference) FROM sead.etude 
         WHERE (statut <= 2 or statut >= 8) AND date_demande BETWEEN '$debut' AND '$fin')AS encours,
@@ -22,8 +23,6 @@ $sql ="
 
  $dataOut = $postgres->getSQL($conn, $sql);
 
-
-//$dataPoints = array();
 
  foreach ($dataOut as $key => $row) {
    
